@@ -44,26 +44,14 @@ class Connect4:
                 break
 
 
-def main_menu():
+if __name__ == '__main__':
     print(text2art("Welcome  to...", font="small"))
     print(text2art("CONNECT  4", font="small"))
-    print(f"{Fore.LIGHTRED_EX}1. PVP, 2. AI, 3. Quit")
-    while True:
-        game_choice = input('Choose the game mode (Default PVP)  [1]: ')
-        if game_choice == "1" or not game_choice:
-            return 0
-        elif game_choice == "2":
-            return 1
-        elif game_choice == "3":
-            exit(0)
-
-
-if __name__ == '__main__':
-    game_mode = main_menu()  # 0 PVP, 1 AI
+    input(f'\n\n{Fore.LIGHTRED_EX}Click enter to start.')
     game = Connect4()
     while True:  # TODO: true should replace with ifWinner()
         clear()
-        print(f"Current Game Mode: {Fore.GREEN}" + "PVP \n" if game_mode == 0 else "AI \n")
+        print(f"\n\n")
         game.print_board()
         print("\n")
         try:
