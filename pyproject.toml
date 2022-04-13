@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "APCSPCreatTask"
-version = "1.0.0"
+version = "1.1.0"
 description = ""
 authors = ["Gavin Li <jiawenli233@gmail.com>", "Anne Zheng <sdzhaj@gmail.com>"]
 

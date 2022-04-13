@@ -53,7 +53,7 @@ class Connect4:
 
     def drop(self, column: int):
         column -= 1
-        if column > 6:
+        if 6 < column or column < 0:
             return
         for index, val in enumerate(reversed(self.board[:, column])):
             if val == 0:
@@ -65,6 +65,11 @@ class Connect4:
                 break
 
     def if_winner(self):
+        if 0 not in self.board:
+            clear()
+            print(f"\nDraw!\n")
+            self.print_board()
+            return False
         for i in range(6):
             if if_connect_4(self.board[:, i]):
                 self.print_board()
