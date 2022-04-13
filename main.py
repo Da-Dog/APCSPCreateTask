@@ -1,7 +1,6 @@
 from colorama import Fore
 from colorama import init as colorama_init
 from art import text2art
-from sys import exit
 from click import clear
 import numpy
 
@@ -10,6 +9,7 @@ colorama_init(autoreset=True)
 
 class Connect4:
     board = numpy.zeros([6, 7])  # 0 empty, 1 red, 2 blue
+    currentPlayer = 1  # 1 red, 2 blue
 
     def print_board(self):
         y = 0
@@ -27,6 +27,19 @@ class Connect4:
                         y_line += f"| {Fore.LIGHTBLUE_EX}X{Fore.RESET} | "
                 print(y_line)
                 y += 1
+        for i in range(7):
+            print(f"{Fore.LIGHTGREEN_EX}  {i + 1}   ", end="")
+
+    def drop(self, column: int):
+        column -= 1
+        for index, val in enumerate(reversed(self.board[:, column])):
+            if val == 0:
+                self.board[5 - index, column] = self.currentPlayer
+                if self.currentPlayer == 1:
+                    self.currentPlayer = 2
+                else:
+                    self.currentPlayer = 1
+                break
 
 
 def main_menu():
@@ -45,8 +58,14 @@ def main_menu():
 
 if __name__ == '__main__':
     game_mode = main_menu()  # 0 PVP, 1 AI
-    clear()
     game = Connect4()
-    print(f"Current Game Mode: {Fore.GREEN}" + "PVP" if game_mode == 0 else "AI")
-    print("")
-    game.print_board()
+    while True:  # TODO: true should replace with ifWinner()
+        clear()
+        print(f"Current Game Mode: {Fore.GREEN}" + "PVP \n" if game_mode == 0 else "AI \n")
+        game.print_board()
+        print("\n")
+        try:
+            game.drop(int(input(f"{Fore.LIGHTRED_EX if game.currentPlayer == 1 else Fore.LIGHTBLUE_EX}Player "
+                                f"{game.currentPlayer}{Fore.RESET}, Please enter your next step... ")))
+        except ValueError:
+            pass
