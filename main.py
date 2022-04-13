@@ -32,6 +32,8 @@ class Connect4:
 
     def drop(self, column: int):
         column -= 1
+        if column > 6:
+            return
         for index, val in enumerate(reversed(self.board[:, column])):
             if val == 0:
                 self.board[5 - index, column] = self.currentPlayer
